@@ -2,29 +2,49 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import TextField from "@mui/material/TextField";
 
 export default function Home() {
   const [userData, setUserData] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+  const [editedUserName, setEditedUserName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editRole, setEditRole] = useState("");
 
-  function handleEditButtonClick(id) {
+  const handleEditButtonClick = (id) => {
     console.log(`Edit button clicked for ID: ${id}`);
-  }
+    setSelectedUserId(id);
+    setEditDialogOpen(true);
+    setEditedUserName(userData.find((user) => user.id === id)?.name || "");
+    setEditEmail(userData.find((user) => user.id === id)?.email || "");
+    setEditRole(userData.find((user) => user.id === id)?.role || "");
+  };
 
-  function handleDeleteButtonClick(id) {
+  const handleDeleteButtonClick = (id) => {
     console.log(`Delete button clicked for ID: ${id}`);
-    let newData = userData.filter((value,index)=>{
-        if(id !== value.id){
+    setUserData((prevData) => prevData.filter((user) => user.id !== id));
+    console.log(`User with ID ${id} deleted successfully.`);
+  };
 
-        }
-    })
-  }
-  useEffect(() => {
-    fetch(
-      "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
-    )
-      .then((d) => d.json())
-      .then((data) => setUserData(data));
-  }, []);
+  const handleEditDialogClose = () => {
+    setEditDialogOpen(false);
+    setSelectedUserId(null);
+  };
+
+  const handleEditDialogSave = () => {
+    setUserData((prevData) =>
+      prevData.map((user) =>
+        user.id === selectedUserId
+          ? { ...user, name: editedUserName, email: editEmail, role: editRole }
+          : user
+      )
+    );
+    handleEditDialogClose();
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 70, sortable: true },
@@ -58,6 +78,14 @@ export default function Home() {
     },
   ];
 
+  useEffect(() => {
+    fetch(
+      "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
+    )
+      .then((d) => d.json())
+      .then((data) => setUserData(data));
+  }, []);
+
   return (
     <div
       style={{
@@ -75,12 +103,41 @@ export default function Home() {
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
+            paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        pageSizeOptions={[10]}
+        pageSizeOptions={[5, 10]}
         checkboxSelection
       />
+
+      <Dialog open={isEditDialogOpen} onClose={handleEditDialogClose}>
+        <DialogTitle>Edit User</DialogTitle>
+        <DialogContent>
+          <TextField
+            style={{ marginTop: "10px" }}
+            label="Name"
+            fullWidth
+            value={editedUserName}
+            onChange={(e) => setEditedUserName(e.target.value)}
+          />
+          <TextField
+            style={{ marginTop: "10px" }}
+            label="Email"
+            fullWidth
+            value={editEmail}
+            onChange={(e) => setEditEmail(e.target.value)}
+          />
+          <TextField
+            style={{ marginTop: "10px" }}
+            label="Role"
+            fullWidth
+            value={editRole}
+            onChange={(e) => setEditRole(e.target.value)}
+          />
+        </DialogContent>
+        <Button onClick={handleEditDialogSave}>Save</Button>
+        <Button onClick={handleEditDialogClose}>Cancel</Button>
+      </Dialog>
     </div>
   );
 }
