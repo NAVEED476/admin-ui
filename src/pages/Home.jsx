@@ -6,6 +6,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
+import Search from "../components/Search";
 
 export default function Home() {
   const [userData, setUserData] = useState([]);
@@ -28,6 +29,9 @@ export default function Home() {
     console.log(`Delete button clicked for ID: ${id}`);
     setUserData((prevData) => prevData.filter((user) => user.id !== id));
     console.log(`User with ID ${id} deleted successfully.`);
+  };
+  const handleSearch = (filteredData) => {
+    setUserData(filteredData);
   };
 
   const handleEditDialogClose = () => {
@@ -58,6 +62,7 @@ export default function Home() {
       renderCell: (params) => (
         <div>
           <Button
+          className="edit"
             variant="outlined"
             color="primary"
             size="small"
@@ -66,6 +71,7 @@ export default function Home() {
             Edit
           </Button>
           <Button
+          className="delete"
             variant="outlined"
             color="secondary"
             size="small"
@@ -94,10 +100,12 @@ export default function Home() {
         margin: "0px",
         display: "flex",
         alignItems: "center",
+        flexDirection:"column",
         justifyContent: "center",
       }}
       className="App"
     >
+       <Search data={userData} onSearch={handleSearch} />
       <DataGrid
         rows={userData}
         columns={columns}
@@ -106,7 +114,7 @@ export default function Home() {
             paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[5, 8]}
         checkboxSelection
       />
 

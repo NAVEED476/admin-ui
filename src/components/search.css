@@ -1,0 +1,11 @@
+.searchBar{
+    display: flex;
+}
+input{
+    width: 800px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+button{
+    height: 35px;
+}
