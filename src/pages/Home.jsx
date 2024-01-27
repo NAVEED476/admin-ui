@@ -61,24 +61,24 @@ export default function Home() {
       width: 160,
       renderCell: (params) => (
         <div>
-          <Button
-          className="edit"
+          <button
+            className="edit"
             variant="outlined"
             color="primary"
             size="small"
             onClick={() => handleEditButtonClick(params.row.id)}
           >
             Edit
-          </Button>
-          <Button
-          className="delete"
+          </button>
+          <button
+            className="delete"
             variant="outlined"
             color="secondary"
             size="small"
             onClick={() => handleDeleteButtonClick(params.row.id)}
           >
             Delete
-          </Button>
+          </button>
         </div>
       ),
     },
@@ -100,12 +100,12 @@ export default function Home() {
         margin: "0px",
         display: "flex",
         alignItems: "center",
-        flexDirection:"column",
+        flexDirection: "column",
         justifyContent: "center",
       }}
       className="App"
     >
-       <Search data={userData} onSearch={handleSearch} />
+      <Search data={userData} onSearch={handleSearch} />
       <DataGrid
         rows={userData}
         columns={columns}
@@ -118,34 +118,52 @@ export default function Home() {
         checkboxSelection
       />
 
-      <Dialog open={isEditDialogOpen} onClose={handleEditDialogClose}>
+      <div
+        open={isEditDialogOpen}
+        onClose={handleEditDialogClose}
+        style={{
+          width: "500px",
+          display: "flex",
+          flexDirection: "column",
+          alignContent: "center",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <DialogTitle>Edit User</DialogTitle>
         <DialogContent>
-          <TextField
-            style={{ marginTop: "10px" }}
+          <input
+            style={{ marginTop: "10px", width: "300px" }}
             label="Name"
             fullWidth
             value={editedUserName}
             onChange={(e) => setEditedUserName(e.target.value)}
           />
-          <TextField
-            style={{ marginTop: "10px" }}
+          <input
+            style={{ marginTop: "10px", width: "300px" }}
             label="Email"
             fullWidth
             value={editEmail}
             onChange={(e) => setEditEmail(e.target.value)}
           />
-          <TextField
-            style={{ marginTop: "10px" }}
+          <input
+            style={{ marginTop: "10px", width: "300px" }}
             label="Role"
             fullWidth
             value={editRole}
             onChange={(e) => setEditRole(e.target.value)}
           />
         </DialogContent>
-        <Button onClick={handleEditDialogSave}>Save</Button>
-        <Button onClick={handleEditDialogClose}>Cancel</Button>
-      </Dialog>
+        <div>
+          {" "}
+          <button onClick={handleEditDialogSave} style={{ width: "100px" }}>
+            Save
+          </button>
+          <button onClick={handleEditDialogClose} style={{ width: "100px" }}>
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

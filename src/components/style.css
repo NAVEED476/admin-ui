@@ -1,0 +1,27 @@
+.searchBar{
+    display: flex;
+}
+input{
+    width: 800px;
+    height: 30px;
+    margin-bottom: 20px;
+}
+button{
+    height: 35px;
+}
+table{
+    width: 1000px;
+}
+th{
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+}
+
+.action-btn{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}

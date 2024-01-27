@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import "./search.css"
+import "./style.css"
 
 const Search = ({ data, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
