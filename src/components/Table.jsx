@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
+import TableRow from "./Row";
 
 const Table = ({ data, setUserData }) => {
   const [editedUserName, setEditedUserName] = useState("");
@@ -45,6 +46,9 @@ const Table = ({ data, setUserData }) => {
         <table>
           <thead>
             <tr>
+              <th>
+                <input type="checkbox" />
+              </th>
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
@@ -54,16 +58,24 @@ const Table = ({ data, setUserData }) => {
           </thead>
           <tbody>
             {data.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td className="action-btn">
-                  <button onClick={() => handleEdit(user.id)}>Edit</button>
-                  <button onClick={() => handleDelete(user.id)}>Delete</button>
-                </td>
-              </tr>
+              // <tr key={user.id}>
+              //   <td>{user.id}</td>
+              //   <td>{user.name}</td>
+              //   <td>{user.email}</td>
+              //   <td>{user.role}</td>
+              //   <td className="action-btn">
+              //     <button onClick={() => handleEdit(user.id)}>Edit</button>
+              //     <button onClick={() => handleDelete(user.id)}>Delete</button>
+              //   </td>
+              // </tr>
+              <TableRow
+                key={user.id}
+                user={user}
+                // selected={selectedRows.includes(user.id)}
+                // handleRowSelection={handleRowSelection}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
             ))}
           </tbody>
         </table>
