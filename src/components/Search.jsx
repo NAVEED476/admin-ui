@@ -4,6 +4,7 @@ import "./style.css"
 
 const Search = ({ data, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  console.log(data)
 
   const handleSearch = () => {
     const filteredData = data.filter(
