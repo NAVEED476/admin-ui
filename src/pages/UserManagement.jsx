@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Search from "../components/Search";
 import Table from "../components/Table";
-import "./main.css";
+import "./user.css";
 
-const Main = () => {
+const UserManagement = () => {
   const [userData, setUserData] = useState([]);
   const handleSearch = (filterdData) => {
     setUserData(filterdData);
@@ -25,4 +25,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default UserManagement;

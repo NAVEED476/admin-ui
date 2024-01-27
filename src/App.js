@@ -1,11 +1,12 @@
 import "./App.css";
 import Home from "./pages/Home";
-import Main from "./pages/Main";
+import UserManagement from "./pages/UserManagement";
+
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <UserManagement/>
     </div>
   );
 }

@@ -1,8 +1,14 @@
-.main-cont{
+.main-cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-content: center;
     margin: 50px 0px;
+}
+
+@media only screen and (max-width: 600px) {
+    .main-cont {
+        margin: 20px 0px;
+    }
 }
