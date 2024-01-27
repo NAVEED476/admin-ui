@@ -18,8 +18,8 @@ const Main = () => {
   return (
     <>
       <div className="main-cont">
-        <Search data={userData} onSearch={handleSearch} />
-        <Table data={userData} />
+        <Search data={userData} onSearch={handleSearch}/>
+        <Table data={userData} setUserData={setUserData} />
       </div>
     </>
   );
