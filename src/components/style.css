@@ -1,27 +1,65 @@
-.searchBar{
+.searchBar {
     display: flex;
-}
-input{
+    margin-bottom: 20px;
+  }
+  
+  input {
     width: 800px;
     height: 30px;
-    margin-bottom: 20px;
-}
-button{
+    margin-right: 10px;
+  }
+  
+  button {
     height: 35px;
-}
-table{
-    width: 1000px;
-}
-th{
+  }
+  
+  table {
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+  
+  th, td {
     border: 1px solid black;
-    margin: 0;
-    padding: 0;
-    height: 30px;
-}
-
-.action-btn{
+    padding: 8px;
+  }
+  
+  .th {
+    height: 40px; 
+  }
+  
+  .action-btn {
     display: flex;
     gap: 10px;
     align-items: center;
-    justify-content: center;
-}
+  }
+  
+  .table-cont {
+    position: relative; 
+  }
+  
+  .editDialogue {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    z-index: 999;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    background: white; 
+    padding: 20px;
+  }
+  
+  .edit-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btns {
+    margin-top: 10px; 
+  }
+  button:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
