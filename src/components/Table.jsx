@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import TableRow from "./Row";
+import Pagination from "./Pagination"
 
 const Table = ({ data, setUserData }) => {
   const [editedUserName, setEditedUserName] = useState("");
@@ -8,6 +9,8 @@ const Table = ({ data, setUserData }) => {
   const [editRole, setEditRole] = useState("");
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const handleEdit = (id) => {
     console.log(`Edit button clicked for ID: ${id}`);
@@ -40,7 +43,16 @@ const Table = ({ data, setUserData }) => {
     console.log(`User with ID ${id} deleted successfully.`);
   };
 
-  return (
+  const handlePagination = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentUsers = data.slice(startIndex, endIndex);
+
+
+  return (<>
     <div>
       <div className="table-cont">
         <table>
@@ -57,22 +69,10 @@ const Table = ({ data, setUserData }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((user) => (
-              // <tr key={user.id}>
-              //   <td>{user.id}</td>
-              //   <td>{user.name}</td>
-              //   <td>{user.email}</td>
-              //   <td>{user.role}</td>
-              //   <td className="action-btn">
-              //     <button onClick={() => handleEdit(user.id)}>Edit</button>
-              //     <button onClick={() => handleDelete(user.id)}>Delete</button>
-              //   </td>
-              // </tr>
+            {currentUsers.map((user) => (
               <TableRow
                 key={user.id}
                 user={user}
-                // selected={selectedRows.includes(user.id)}
-                // handleRowSelection={handleRowSelection}
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
@@ -118,7 +118,13 @@ const Table = ({ data, setUserData }) => {
         </div>
       )}
     </div>
-  );
+    <Pagination
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={data.length}
+        handlePagination={handlePagination}
+      />
+  </>);
 };
 
 export default Table;
